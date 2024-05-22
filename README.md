@@ -12,6 +12,9 @@ This is a full-stack movie booking web application built with the following tech
 - Browse and search movies
 
 Username Password
+
 user1	User1#456
+
 user2	User2#487
+
 user3	User3#745

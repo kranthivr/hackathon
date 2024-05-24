@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import MovieCard from "./MovieCard";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -10,25 +11,19 @@ const Movies = () => {
   }
 
   useEffect(() => {
-    getMovies();
-    return () => getMovies();
+    const fetchMovies = async () => {
+      await getMovies();
+    };
+
+    fetchMovies();
+
+    return () => {};
   }, []);
 
   return (
     <div>
       {movies && movies.length > 0
-        ? movies.map((movie) => (
-            <div className="container max-w-md mx-auto my-5" key={movie.id}>
-              <a
-                href="#"
-                className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-              >
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {movie.name}
-                </h5>
-              </a>
-            </div>
-          ))
+        ? movies.map((movie) => <MovieCard movie={movie} />)
         : "No movies to show"}
     </div>
   );

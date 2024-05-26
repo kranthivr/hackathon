@@ -2,6 +2,8 @@ package com.honeywellhackathon.ticketbooking.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -25,6 +27,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
+    @JsonBackReference
     private Movie movie;
 
     @Column(name = "show_at", nullable = false, updatable = false)

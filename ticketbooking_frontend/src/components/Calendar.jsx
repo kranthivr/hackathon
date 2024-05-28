@@ -16,7 +16,6 @@ const Calendar = (props) => {
     return result;
   }
   const { time, className } = props;
-  console.log(time);
   const { dd, month, mm, yyyy, hh, min, ss, sss } = convertDateString(time);
 
   return (

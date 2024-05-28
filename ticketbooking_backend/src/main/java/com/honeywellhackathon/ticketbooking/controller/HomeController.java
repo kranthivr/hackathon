@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honeywellhackathon.ticketbooking.dto.LoginDto;
+import com.honeywellhackathon.ticketbooking.dto.PayDto;
 import com.honeywellhackathon.ticketbooking.model.Movie;
 import com.honeywellhackathon.ticketbooking.model.Ticket;
 import com.honeywellhackathon.ticketbooking.model.User;
@@ -82,6 +83,27 @@ public class HomeController {
             return tickets;
         }
         return null;
+    }
+
+    @PostMapping("/pay")
+    public String pay(@RequestBody PayDto payDto) {
+        Optional<User> optionalUser = userRepo.findByUsername(payDto.getUser());
+        if (!optionalUser.isPresent()) {
+            return "Invalid User";
+        }
+
+        User user = optionalUser.get();
+        List<Ticket> tickets = ticketRepo.findAllById(payDto.getTicketIds());
+        boolean isAnyTicketBooked = tickets.stream().anyMatch(ticket -> ticket.isBooked());
+        if (isAnyTicketBooked)
+            return "Ticket(s) is/are already booked";
+
+        tickets.forEach(ticket -> {
+            ticket.setBooked(true);
+            ticket.setUser(user);
+        });
+        ticketRepo.saveAllAndFlush(tickets);
+        return "Payment Successful";
     }
 
 }

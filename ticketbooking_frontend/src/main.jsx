@@ -12,6 +12,7 @@ import Root from "./components/Root";
 import "./index.css";
 import MovieDetails, { getMovieDetails } from "./components/MovieDetails";
 import Tickets, { getTickets } from "./components/Tickets";
+import { AuthProvider } from "./components/auth";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

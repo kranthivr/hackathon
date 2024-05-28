@@ -1,18 +1,18 @@
-import { useState } from "react";
-import "./App.css";
-import Login from "./components/Login";
-import Movies from "./components/Movies";
+// import { useState } from "react";
+// import "./App.css";
+// import Login from "./components/Login";
+// import Movies from "./components/Movies";
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+// function App() {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function handleUserLogin() {
-    setIsLoggedIn(true);
-  }
+//   function handleUserLogin() {
+//     setIsLoggedIn(true);
+//   }
 
-  if (isLoggedIn) return <Movies />;
+//   if (isLoggedIn) return <Movies />;
 
-  return <Login handleUserLogin={handleUserLogin} />;
-}
+//   return <Login handleUserLogin={handleUserLogin} />;
+// }
 
-export default App;
+// export default App;

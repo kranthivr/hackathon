@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-TicketbookingApplication<ticketbooking>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.honeywellhackathon.ticketbooking.TicketbookingApplication",
+      "projectName": "ticketbooking",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

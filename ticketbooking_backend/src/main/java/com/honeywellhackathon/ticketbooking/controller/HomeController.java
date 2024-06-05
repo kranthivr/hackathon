@@ -3,6 +3,7 @@ package com.honeywellhackathon.ticketbooking.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.honeywellhackathon.ticketbooking.aggregation.TicketSummary;
 import com.honeywellhackathon.ticketbooking.dto.LoginDto;
 import com.honeywellhackathon.ticketbooking.dto.PayDto;
 import com.honeywellhackathon.ticketbooking.model.Movie;
@@ -98,12 +101,26 @@ public class HomeController {
         if (isAnyTicketBooked)
             return "Ticket(s) is/are already booked";
 
+        UUID uuid = UUID.randomUUID();
         tickets.forEach(ticket -> {
             ticket.setBooked(true);
             ticket.setUser(user);
+            ticket.setPaymentRef(uuid);
         });
         ticketRepo.saveAllAndFlush(tickets);
         return "Payment Successful";
+    }
+
+    @GetMapping("/bookedTickets")
+    public List<TicketSummary> getBookedTickets(@RequestParam String username) {
+        Optional<User> optionalUser = userRepo.findByUsername(username);
+        if (!optionalUser.isPresent()) {
+            return null;
+        }
+
+        User user = optionalUser.get();
+        List<TicketSummary> bookedTickets = ticketRepo.findTicketSummaries(user.getId());
+        return bookedTickets;
     }
 
 }

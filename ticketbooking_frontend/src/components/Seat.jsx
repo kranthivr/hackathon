@@ -5,7 +5,7 @@ const Seat = (props) => {
   return (
     <div
       key={seat.id}
-      className={`border border-sky-500 ${
+      className={`border ${!seat.selected && "border-sky-500"} ${
         seat.selected &&
         "bg-orange-500 border-orange-700 shadow-md shadow-orange-300 text-white"
       } ${!seat.booked && "cursor-pointer"} ${

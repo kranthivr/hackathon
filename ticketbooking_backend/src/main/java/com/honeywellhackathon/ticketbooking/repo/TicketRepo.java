@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.honeywellhackathon.ticketbooking.aggregation.TicketSummary;
 import com.honeywellhackathon.ticketbooking.model.Movie;
 import com.honeywellhackathon.ticketbooking.model.Ticket;
 
@@ -18,5 +19,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
     List<LocalDateTime> findShowsByMovie(@Param("movie") Movie movie);
 
     List<Ticket> findByMovieAndShowAt(Movie movie, LocalDateTime showAt);
+
+    @Query(value = "select string_agg(seat_name, ',') as seats, show_at as showAt from tickets where user_id = :userId group by payment_ref", nativeQuery = true)
+    List<TicketSummary> findTicketSummaries(@Param("userId") Long userId);
 
 }

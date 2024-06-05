@@ -8,7 +8,6 @@ export async function getMovieDetails({ params }) {
   const movieDetails = await fetch(
     `http://localhost:8080/api/movies/${id}`
   ).then((res) => res.json());
-  console.log(movieDetails);
   return movieDetails;
 }
 

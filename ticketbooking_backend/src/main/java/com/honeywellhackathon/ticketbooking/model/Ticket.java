@@ -1,16 +1,22 @@
 package com.honeywellhackathon.ticketbooking.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.honeywellhackathon.ticketbooking.aggregation.TicketSummary;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedNativeQuery;
+import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -39,6 +45,9 @@ public class Ticket {
 
     @Column(name = "booked_at", nullable = true, updatable = true)
     private LocalDateTime bookedAt;
+
+    @Column(name = "payment_ref", nullable = true, updatable = true)
+    private UUID paymentRef;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

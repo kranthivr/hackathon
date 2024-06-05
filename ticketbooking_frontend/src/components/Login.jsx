@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "./auth";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [bookedTickets, setBookedTickets] = useState([]);
   const auth = useAuth();
 
   async function handleSubmit(e) {
@@ -33,6 +34,19 @@ const Login = () => {
         setLoading(false);
       });
   }
+
+  async function getBookedTickets() {
+    if (auth.user) {
+      const bookedTickets = await fetch(
+        `http://localhost:8080/api/bookedTickets?username=${auth.user}`
+      ).then((res) => res.json());
+      console.log(bookedTickets);
+    }
+  }
+
+  useEffect(() => {
+    getBookedTickets();
+  }, [auth]);
 
   return (
     <div className="mx-auto mt-5 max-w-xs">
